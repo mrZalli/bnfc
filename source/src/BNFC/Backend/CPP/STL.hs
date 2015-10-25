@@ -39,7 +39,7 @@ makeCppStl :: SharedOptions -> CF -> MkFiles ()
 makeCppStl opts cf = do
     let (hfile, cfile) = cf2CPPAbs (linenumbers opts) (inPackage opts) name cf
     mkfile "Absyn.H" hfile
-    mkfile "Absyn.C" cfile
+    mkfile "Absyn.CPP" cfile
     let (flex, env) = cf2flex (inPackage opts) name cf
     mkfile (name ++ ".l") flex
     let bison = cf2Bison (linenumbers opts) (inPackage opts) name cf env
@@ -48,11 +48,11 @@ makeCppStl opts cf = do
     mkfile "Parser.H" header
     let (skelH, skelC) = cf2CVisitSkel (inPackage opts) cf
     mkfile "Skeleton.H" skelH
-    mkfile "Skeleton.C" skelC
+    mkfile "Skeleton.CPP" skelC
     let (prinH, prinC) = cf2CPPPrinter True (inPackage opts) cf
     mkfile "Printer.H" prinH
-    mkfile "Printer.C" prinC
-    mkfile "Test.C" (cpptest (inPackage opts) cf)
+    mkfile "Printer.CPP" prinC
+    mkfile "Test.CPP" (cpptest (inPackage opts) cf)
     Makefile.mkMakefile opts $ makefile name
   where name = lang opts
 

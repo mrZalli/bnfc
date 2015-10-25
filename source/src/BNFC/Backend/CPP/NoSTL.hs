@@ -36,7 +36,7 @@ makeCppNoStl :: SharedOptions -> CF -> MkFiles ()
 makeCppNoStl opts cf = do
     let (hfile, cfile) = cf2CPPAbs name cf
     mkfile "Absyn.H" hfile
-    mkfile "Absyn.C" cfile
+    mkfile "Absyn.CPP" cfile
     let (flex, env) = cf2flex Nothing name cf
     mkfile (name ++ ".l") flex
     let bison = cf2Bison name cf env
@@ -45,11 +45,11 @@ makeCppNoStl opts cf = do
     mkfile "Parser.H" header
     let (skelH, skelC) = cf2CVisitSkel cf
     mkfile "Skeleton.H" skelH
-    mkfile "Skeleton.C" skelC
+    mkfile "Skeleton.CPP" skelC
     let (prinH, prinC) = cf2CPPPrinter False Nothing cf
     mkfile "Printer.H" prinH
-    mkfile "Printer.C" prinC
-    mkfile "Test.C" (cpptest cf)
+    mkfile "Printer.CPP" prinC
+    mkfile "Test.CPP" (cpptest cf)
     Makefile.mkMakefile opts $ makefile name
   where name = lang opts
 
